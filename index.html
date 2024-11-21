@@ -163,14 +163,28 @@
       offscreenCtx.drawImage(overlay, 0, 0, offscreenCanvas.width, offscreenCanvas.height);
     }
 
+    // downloadButton.addEventListener('click', () => {
+    //   drawOffscreenCanvas();
+    //   const dataURL = offscreenCanvas.toDataURL('image/png');
+    //   const link = document.createElement('a');
+    //   link.href = dataURL;
+    //   link.download = 'profile_rak_ceramics.png';
+    //   link.click();
+    // });
+
     downloadButton.addEventListener('click', () => {
       drawOffscreenCanvas();
-      const dataURL = offscreenCanvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = dataURL;
-      link.download = 'profile_rak_ceramics.png';
-      link.click();
+
+      offscreenCanvas.toBlob((blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'profile_rak_ceramics.png';
+        document.body.appendChild(link); // Required for iOS Safari
+        link.click();
+        document.body.removeChild(link); // Clean up
+      }, 'image/png');
     });
+
   </script>
 </body>
 </html>
