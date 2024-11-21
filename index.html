@@ -61,7 +61,6 @@
   <input type="file" id="upload" accept="image/*" />
   <div class="button-group">
     <button id="uploadButton"><i class="fa-solid fa-camera"></i> Choose Your Photo</button>
-    <button id="resetButton"><i class="fa-solid fa-undo"></i> Reset Zoom</button>
     <button id="downloadButton"><i class="fa-solid fa-download"></i> Download Photo</button>
   </div>
 
@@ -70,7 +69,6 @@
     const ctx = canvas.getContext('2d');
     const upload = document.getElementById('upload');
     const uploadButton = document.getElementById('uploadButton');
-    const resetButton = document.getElementById('resetButton');
     const downloadButton = document.getElementById('downloadButton');
 
     // Off-screen canvas for high-resolution download
@@ -132,7 +130,6 @@
           position = { ...initialPosition };
 
           drawCanvas();
-          resetButton.style.display = 'block';
           downloadButton.style.display = 'block';
         };
         image.src = event.target.result;
@@ -165,12 +162,6 @@
 
       offscreenCtx.drawImage(overlay, 0, 0, offscreenCanvas.width, offscreenCanvas.height);
     }
-
-    resetButton.addEventListener('click', () => {
-      scale = initialScale;
-      position = { ...initialPosition };
-      drawCanvas();
-    });
 
     downloadButton.addEventListener('click', () => {
       drawOffscreenCanvas();
